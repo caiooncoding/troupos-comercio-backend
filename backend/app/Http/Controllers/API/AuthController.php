@@ -17,6 +17,14 @@ class AuthController extends Controller
             'email'=>'required|email|max:191|unique:users,email',
             'phone'=>'required|min:11',
             'password'=>'required|min:8'
+        ], [
+            'name.required' => 'Nome é obrigatório',
+            'email.required'=> 'Email é obrigatório',
+            'email.unique' => 'Email já cadastrado',
+            'phone.required' => 'Número de telefone obrigatório',
+            'phone.min' => 'Número de telefone deve conter 11 caracteres',
+            'password.required' => 'Senha obrigatória',
+            'password.min' => 'A senha deve conter no mínimo 8 caracteres'
         ]);
 
         if($validator->fails())
