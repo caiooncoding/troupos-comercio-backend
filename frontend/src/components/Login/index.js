@@ -8,6 +8,8 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [login, setLogin] = useState({
     email: '',
     password: '',
@@ -21,7 +23,8 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
+    
     const data = {
       email: login.email,
       password: login.password,
@@ -30,15 +33,19 @@ function Login() {
     axios.get('/sanctum/csrf-cookie').then(response => {
       axios.post('api/login', data).then(res => {
         if (res.data.status === 200) {
+          setIsLoading(false)
+
           localStorage.setItem('auth_token', res.data.token)
           localStorage.setItem('auth_name', res.data.username)
-          
+
           navigate('/')
         }
         else if (res.data.status === 401) {
+          setIsLoading(false)
           swal("Erro", res.data.message, 'warning')
         }
         else {
+          setIsLoading(false)
           setLogin({ ...login, error_list: res.data.validation_errors })
         }
       })
@@ -47,6 +54,16 @@ function Login() {
 
   return (
     <div>
+      {isLoading &&
+        <div className="preloader">
+          <div className="preloader-inner">
+            <div className="preloader-icon">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      }
       <Navbar />
       <div className="container py-5">
         <div className="row justify-content-center">

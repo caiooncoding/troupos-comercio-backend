@@ -8,6 +8,8 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const [registerInput, setRegisterInput] = useState({
     name: '',
     email: '',
@@ -18,12 +20,12 @@ function Register() {
 
   const handleInput = (e) => {
     e.persist();
-    setRegisterInput({ ...registerInput, [e.target.name]: e.target.value })
+    setRegisterInput({ ...registerInput, [e.target.name]: e.target.value });
   }
 
   const registerSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
     const data = {
       name: registerInput.name,
       email: registerInput.email,
@@ -34,12 +36,12 @@ function Register() {
     axios.get('/sanctum/csrf-cookie').then(response => {
       axios.post('/api/register', data).then(res => {
         if (res.data.status === 200) {
-          localStorage.setItem('auth_token', res.data.token)
-          localStorage.setItem('auth_name', res.data.username)
+          setIsLoading(false)
           swal('Sucesso', res.data.message, 'success')
           navigate('/login')
         }
         else {
+          setIsLoading(false)
           setRegisterInput({ ...registerInput, error_list: res.data.validation_errors })
         }
       })
@@ -49,6 +51,16 @@ function Register() {
 
   return (
     <div>
+      {isLoading &&
+        <div className="preloader">
+          <div className="preloader-inner">
+            <div className="preloader-icon">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      }
       <Navbar />
       <div className="container py-5">
         <div className="row justify-content-center">

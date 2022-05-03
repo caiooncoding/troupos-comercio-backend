@@ -4,6 +4,7 @@ import Register from './components/Login/Register/index'
 import Home from './components/Home/index';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Loading from './components/Loading';
 
 
 axios.defaults.baseURL = "http://localhost:8088/";

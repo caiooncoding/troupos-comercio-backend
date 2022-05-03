@@ -1,18 +1,11 @@
 import React from 'react';
 
+
 function Home() {
 
     return (
 
       <div>
-        <div className="preloader">
-          <div className="preloader-inner">
-            <div className="preloader-icon">
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </div>
 
         <header className="header shop">
 
