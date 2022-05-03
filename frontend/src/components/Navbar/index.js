@@ -23,7 +23,7 @@ function Navbar() {
                   <div className="right-content">
                     <ul className="list-main">
                       <li><i className="ti-location-pin"></i>Localização da Loja</li>
-                      <li><i className="ti-user"></i> <a href="#">My account</a></li>
+                      <li><i className="ti-user"></i> <a href="#">Minha Conta</a></li>
                       <li><i className="ti-power-off"></i><a href="/login">Login</a></li>
                     </ul>
                   </div>
