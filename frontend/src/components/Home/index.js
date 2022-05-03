@@ -64,14 +64,8 @@ function Home() {
                 <div className="col-lg-8 col-md-7 col-12">
                   <div className="search-bar-top">
                     <div className="search-bar">
-                      <select>
-                        <option selected="selected">All Category</option>
-                        <option>watch</option>
-                        <option>mobile</option>
-                        <option>kid’s item</option>
-                      </select>
                       <form>
-                        <input name="search" placeholder="Search Products Here....." type="search" />
+                        <input name="search" placeholder="Pesquise por produtos aqui" type="search" />
                         <button className="btnn"><i className="ti-search"></i></button>
                       </form>
                     </div>
@@ -87,11 +81,11 @@ function Home() {
                       <a href="#" className="single-icon"><i className="fa fa-user-circle-o" aria-hidden="true"></i></a>
                     </div>
                     <div className="sinlge-bar shopping">
-                      <a href="#" className="single-icon"><i className="ti-bag"></i> <span className="total-count">2</span></a>
+                      <a href="#" className="single-icon"><i className="ti-bag"></i> <span className="total-count">3</span></a>
 
                       <div className="shopping-item">
                         <div className="dropdown-cart-header">
-                          <span>2 Items</span>
+                          <span> Items</span>
                           <a href="#">View Cart</a>
                         </div>
                         <ul className="shopping-list">
@@ -316,12 +310,12 @@ function Home() {
                   <div className="nav-main">
 
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
-                      <li className="nav-item"><a className="nav-link active" data-toggle="tab" href="#man" role="tab">Man</a></li>
-                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#women" role="tab">Woman</a></li>
-                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#kids" role="tab">Kids</a></li>
-                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#accessories" role="tab">Accessories</a></li>
-                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#essential" role="tab">Essential</a></li>
-                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#prices" role="tab">Prices</a></li>
+                      <li className="nav-item"><a className="nav-link active" data-toggle="tab" href="#man" role="tab">Categoria 1</a></li>
+                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#women" role="tab">Categoria 2</a></li>
+                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#kids" role="tab">Categoria 3</a></li>
+                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#accessories" role="tab">Categoria 4</a></li>
+                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#essential" role="tab">Categoria 5</a></li>
+                      <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#prices" role="tab">Categoria 6</a></li>
                     </ul>
 
                   </div>
@@ -1648,42 +1642,12 @@ function Home() {
           </div>
         </div>
 
-        <section className="midium-banner">
-          <div className="container">
-            <div className="row">
-
-              <div className="col-lg-6 col-md-6 col-12">
-                <div className="single-banner">
-                  <img src="https://via.placeholder.com/600x370" alt="#" />
-                  <div className="content">
-                    <p>Man's Collectons</p>
-                    <h3>Man's items <br />Up to<span> 50%</span></h3>
-                    <a href="#">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-6 col-md-6 col-12">
-                <div className="single-banner">
-                  <img src="https://via.placeholder.com/600x370" alt="#" />
-                  <div className="content">
-                    <p>shoes women</p>
-                    <h3>mid season <br /> up to <span>70%</span></h3>
-                    <a href="#" className="btn">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
         <div className="product-area most-popular section">
           <div className="container">
             <div className="row">
               <div className="col-12">
                 <div className="section-title">
-                  <h2>Hot Item</h2>
+                  <h2>Recomendações</h2>
                 </div>
               </div>
             </div>
@@ -1807,7 +1771,7 @@ function Home() {
                 <div className="row">
                   <div className="col-12">
                     <div className="shop-section-title">
-                      <h1>On sale</h1>
+                      <h1>Na promoção</h1>
                     </div>
                   </div>
                 </div>
@@ -1868,7 +1832,7 @@ function Home() {
                 <div className="row">
                   <div className="col-12">
                     <div className="shop-section-title">
-                      <h1>Best Seller</h1>
+                      <h1>Mais vendidos</h1>
                     </div>
                   </div>
                 </div>
@@ -1929,7 +1893,7 @@ function Home() {
                 <div className="row">
                   <div className="col-12">
                     <div className="shop-section-title">
-                      <h1>Top viewed</h1>
+                      <h1>Mais vistos</h1>
                     </div>
                   </div>
                 </div>
@@ -1982,81 +1946,6 @@ function Home() {
                         <p className="price with-discount">$99</p>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="cown-down">
-          <div className="section-inner ">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-lg-6 col-12 padding-right">
-                  <div className="image">
-                    <img src="https://via.placeholder.com/750x590" alt="#" />
-                  </div>
-                </div>
-                <div className="col-lg-6 col-12 padding-left">
-                  <div className="content">
-                    <div className="heading-block">
-                      <p className="small-title">Deal of day</p>
-                      <h3 className="title">Beatutyful dress for women</h3>
-                      <p className="text">Suspendisse massa leo, vestibulum cursus nulla sit amet, frungilla placerat lorem. Cars fermentum, sapien. </p>
-                      <h1 className="price">$1200 <s>$1890</s></h1>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="shop-blog section">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <div className="section-title">
-                  <h2>From Our Blog</h2>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-4 col-md-6 col-12">
-
-                <div className="shop-single-blog">
-                  <img src="https://via.placeholder.com/370x300" alt="#" />
-                  <div className="content">
-                    <p className="date">22 July , 2020. Monday</p>
-                    <a href="#" className="title">Sed adipiscing ornare.</a>
-                    <a href="#" className="more-btn">Continue Reading</a>
-                  </div>
-                </div>
-
-              </div>
-              <div className="col-lg-4 col-md-6 col-12">
-
-                <div className="shop-single-blog">
-                  <img src="https://via.placeholder.com/370x300" alt="#" />
-                  <div className="content">
-                    <p className="date">22 July, 2020. Monday</p>
-                    <a href="#" className="title">Man’s Fashion Winter Sale</a>
-                    <a href="#" className="more-btn">Continue Reading</a>
-                  </div>
-                </div>
-
-              </div>
-              <div className="col-lg-4 col-md-6 col-12">
-
-                <div className="shop-single-blog">
-                  <img src="https://via.placeholder.com/370x300" alt="#" />
-                  <div className="content">
-                    <p className="date">22 July, 2020. Monday</p>
-                    <a href="#" className="title">Women Fashion Festive</a>
-                    <a href="#" className="more-btn">Continue Reading</a>
                   </div>
                 </div>
 
