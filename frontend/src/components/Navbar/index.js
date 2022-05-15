@@ -1,7 +1,20 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 
 function Navbar() {
+
+  let AuthButtons = '';
+  if(!localStorage.getItem('auth_token'))
+  {
+    AuthButtons = (
+      <li><i className="ti-power-off"></i><a href="/login">Login</a></li>
+    )
+  }else{
+    AuthButtons = (
+      <li><button type="button" className="nav-link btn btn-danger btn-sm">Logout</button></li>
+    )
+  }
+  
+
   return (
     <header className="header shop">
 
@@ -24,7 +37,7 @@ function Navbar() {
                     <ul className="list-main">
                       <li><i className="ti-location-pin"></i>Localização da Loja</li>
                       <li><i className="ti-user"></i> <a href="#">Minha Conta</a></li>
-                      <li><i className="ti-power-off"></i><a href="/login">Login</a></li>
+                      {AuthButtons}
                     </ul>
                   </div>
 
