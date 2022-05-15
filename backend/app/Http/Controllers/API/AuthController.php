@@ -14,13 +14,13 @@ class AuthController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'=>'required',
-            'email'=>'required|email|max:191|unique:users,email',
-            'phone'=>'required|min:11',
-            'password'=>'required|min:8'
+            'name' => 'required',
+            'email' => 'required|email|max:191|unique:users,email',
+            'phone' => 'required|min:11',
+            'password' => 'required|min:8'
         ], [
             'name.required' => 'Nome é obrigatório',
-            'email.required'=> 'Email é obrigatório',
+            'email.required' => 'Email é obrigatório',
             'email.unique' => 'Email já cadastrado',
             'phone.required' => 'Número de telefone obrigatório',
             'phone.min' => 'Número de telefone deve conter 11 caracteres',
@@ -28,28 +28,25 @@ class AuthController extends Controller
             'password.min' => 'A senha deve conter no mínimo 8 caracteres'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json([
-                'validation_errors'=>$validator->messages()
+                'validation_errors' => $validator->messages()
             ]);
-        }
-        else
-        {
+        } else {
             $user = User::create([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'phone'=>$request->phone,
-                'password'=>Hash::make($request->password)
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password)
             ]);
 
-            $token = $user->createToken($user->email.'_Token')->plainTextToken;
-            
+            $token = $user->createToken($user->email . '_Token')->plainTextToken;
+
             return response()->json([
-                'status'=>200,
-                'username'=>$user->name,
-                'token'=>$token,
-                'message'=>'Registrado com Sucesso'
+                'status' => 200,
+                'username' => $user->name,
+                'token' => $token,
+                'message' => 'Registrado com Sucesso'
             ]);
         }
     }
@@ -64,26 +61,20 @@ class AuthController extends Controller
             'password.required' => 'Senha é obrigatória'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json([
                 'validation_errors' => $validator->messages()
             ]);
-        }
-        else
-        {
+        } else {
             $user = User::where('email', $request->email)->first();
 
-            if(!$user || !Hash::check($request->password, $user->password))
-            {
+            if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json([
                     'status' => 401,
                     'message' => 'Email ou Senha incorretos.'
                 ]);
-            }
-            else
-            {
-                $token = $user->createToken($user->email.'_Token')->plainTextToken;
+            } else {
+                $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
                 return response()->json([
                     'status' => 200,
@@ -93,5 +84,14 @@ class AuthController extends Controller
                 ]);
             }
         }
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status'=>200,
+            'message'=>"Deslogado com sucesso!"
+        ]);
     }
 }

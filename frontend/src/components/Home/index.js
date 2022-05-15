@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import swal from "sweetalert";
+import { useNavigate } from 'react-router-dom';
 
-
-function myFunction() {
-  console.log('hello, world!')
-}
 
 function Home() {
+
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const logout = (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    axios.post('/api/logout').then(res => {
+      if(res.data.status === 200)
+      {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_name')
+        setIsLoading(false)
+        swal("Success", res.data.message, "success")
+        navigate('/')
+      }
+    })
+  }
 
   let AuthButtons = '';
 
@@ -20,9 +38,17 @@ function Home() {
   }
 
   return (
-
     <div>
-
+      {isLoading &&
+        <div className="preloader">
+          <div className="preloader-inner">
+            <div className="preloader-icon">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      }
       <header className="header shop">
 
         <div className="topbar">
