@@ -4,7 +4,7 @@ import Register from './components/Login/Register/index'
 import Home from './components/Home/index';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import Loading from './components/Loading';
+import Main from './layouts/admin/Main';
 
 
 axios.defaults.baseURL = "http://localhost:8088/";
@@ -18,6 +18,7 @@ axios.interceptors.request.use(function (config) {
 })
 
 function App() {
+
   return (
     <BrowserRouter>
             <Routes>
@@ -25,14 +26,22 @@ function App() {
                     path="/"
                     element={ <Home /> }
                 />
+
+                <Route 
+                    path="/login">
+                    {localStorage.getItem('auth_token' ?  <Navigate to="/" /> : <Login/>)}
+                </Route>
+
+                <Route 
+                    path="/register">
+                    {localStorage.getItem('auth_token' ? <Navigate to="/" /> : <Register/>)}
+                </Route>
+
                 <Route
-                    path="/login"
-                    element={ <Login /> }
+                    path="/admin/dashboard"
+                    element={ <Main/> }
                 />
-                <Route
-                    path="/register"
-                    element={ <Register /> }
-                />
+
             </Routes>
         </BrowserRouter>
   );
