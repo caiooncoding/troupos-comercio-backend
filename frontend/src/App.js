@@ -26,7 +26,7 @@ function App() {
                     path="/"
                     element={ <Home /> }
                 />
-
+                
                 <Route 
                     path="/login">
                     {localStorage.getItem('auth_token' ?  <Navigate to="/" /> : <Login/>)}
@@ -38,9 +38,16 @@ function App() {
                 </Route>
 
                 <Route
-                    path="/admin/dashboard"
+                    path="/admin"
+                    name="Admin"
                     element={ <Main/> }
                 />
+                <Route
+                    path="/admin/categories"
+                    name="Admin"
+                    element={ <Main/> }
+                />
+                
 
             </Routes>
         </BrowserRouter>
