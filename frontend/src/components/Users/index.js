@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
-import Footer from './Footer';
+import Navbar from '../../layouts/admin/Navbar';
+import Sidebar from '../../layouts/admin/Sidebar';
+import Footer from '../../layouts/admin/Footer';
 import '../../assets/admin/css/styles.css';
 import '../../assets/admin/js/scripts';
 
-const Admin = () => {
+const Users = () => {
 
   return (
     <div className='sb-nav-fixed'>
@@ -20,7 +20,7 @@ const Admin = () => {
           <main>
 
             <p className='lead'>
-              Escolha uma sessão do painel.
+              Usuários
             </p>
 
           </main>
@@ -32,4 +32,4 @@ const Admin = () => {
   )
 }
 
-export default Admin;
+export default Users;
