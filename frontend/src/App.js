@@ -2,7 +2,7 @@ import './App.css';
 import Login from './components/Login/index'
 import Register from './components/Login/Register/index'
 import Home from './components/Home/index';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Main from './layouts/admin/Main';
 import Categories from './components/Categories';
@@ -31,14 +31,14 @@ function App() {
                 />
                 
                 <Route 
-                    path="/login">
-                    {localStorage.getItem('auth_token' ?  <Navigate to="/" /> : <Login/>)}
-                </Route>
+                    path="/login"
+                    element={<Login/>}
+                />
 
                 <Route 
-                    path="/register">
-                    {localStorage.getItem('auth_token' ? <Navigate to="/" /> : <Register/>)}
-                </Route>
+                    path="/register"
+                    element={<Register/>}
+                />
 
                 <Route
                     path="/admin"
