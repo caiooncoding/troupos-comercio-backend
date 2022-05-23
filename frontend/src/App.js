@@ -49,7 +49,11 @@ function App() {
                     element={ <Categories/> }
                 />
                 <Route
-                    path="/admin/products"
+                    path="/admin/add-product"
+                    element={ <Products/> }
+                />
+                <Route
+                    path="/admin/view-product"
                     element={ <Products/> }
                 />
                 <Route

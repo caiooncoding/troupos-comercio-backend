@@ -6,8 +6,6 @@ import '../../assets/admin/css/styles.css';
 import '../../assets/admin/js/scripts';
 import axios from "axios";
 import swal from "sweetalert";
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
 
 const Categories = () => {
 
@@ -25,7 +23,6 @@ const Categories = () => {
     axios.get('/sanctum/csrf-cookie').then(response => {
       axios.get('/api/category/show').then(res => {
         setCategories(res.data)
-        console.log(categories)
       })
     })
 
@@ -100,16 +97,14 @@ const Categories = () => {
                 <tr>
                   <th scope="row">Nome</th>
                 </tr>
-                {categories.map((item) => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <IconButton aria-label="delete">
-                        <DeleteIcon />
-                      </IconButton>
-                    </tr>
-                  )
-                })
+                  {categories.map((item) => {
+                    return (
+                      <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <button className='btn btn-danger'/>
+                      </tr>
+                    )
+                  })
                 }
               </tbody>
             </table>
