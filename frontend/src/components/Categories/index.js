@@ -20,12 +20,9 @@ const Categories = () => {
   });
 
   const getCategories = () => {
-    axios.get('/sanctum/csrf-cookie').then(response => {
-      axios.get('/api/category/show').then(res => {
-        setCategories(res.data)
-      })
+    axios.get('/api/category/show').then(res => {
+      setCategories(res.data)
     })
-
   }
 
   const handleInput = (e) => {
@@ -97,14 +94,14 @@ const Categories = () => {
                 <tr>
                   <th scope="row">Nome</th>
                 </tr>
-                  {categories.map((item) => {
-                    return (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <button className='btn btn-danger'/>
-                      </tr>
-                    )
-                  })
+                {categories.map((item) => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <button className='btn btn-danger' />
+                    </tr>
+                  )
+                })
                 }
               </tbody>
             </table>

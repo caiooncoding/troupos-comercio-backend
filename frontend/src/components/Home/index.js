@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import swal from "sweetalert";
 import { useNavigate } from 'react-router-dom';
 
 
 function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState([])
+
+
+  const getCategories = () => {
+    axios.get('/api/category/show').then(res => {
+      setCategories(res.data)
+    })
+  }
 
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
 
   const logout = (e) => {
     e.preventDefault()
     setIsLoading(true)
     axios.post('/api/logout').then(res => {
-      if(res.data.status === 200)
-      {
+      if (res.data.status === 200) {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_name')
         setIsLoading(false)
@@ -36,6 +43,10 @@ function Home() {
       <li><button type="button" onClick={logout} className="nav-link btn btn-danger btn-sm text-white">Logout</button></li>
     )
   }
+
+  useEffect(() => {
+    getCategories()
+  }, [])
 
   return (
     <div>
@@ -59,7 +70,7 @@ function Home() {
                 <div className="top-left">
                   <ul className="list-main">
                     <li><i className="ti-headphone-alt"></i>(47)3056-7718</li>
-                    <li><i className="ti-email"></i> email.com</li>
+                    <li><i className="ti-email"></i>trouposcomercio@gmail.com</li>
                   </ul>
                 </div>
 
@@ -167,99 +178,13 @@ function Home() {
                   <div className="all-category">
                     <h3 className="cat-heading"><i className="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
                     <ul className="main-category">
-                      <li><a href="#">New Arrivals <i className="fa fa-angle-right" aria-hidden="true"></i></a>
-                        <ul className="sub-category">
-                          <li><a href="#">accessories</a></li>
-                          <li><a href="#">best selling</a></li>
-                          <li><a href="#">top 100 offer</a></li>
-                          <li><a href="#">sunglass</a></li>
-                          <li><a href="#">watch</a></li>
-                          <li><a href="#">man’s product</a></li>
-                          <li><a href="#">ladies</a></li>
-                          <li><a href="#">westrn dress</a></li>
-                          <li><a href="#">denim </a></li>
-                        </ul>
-                      </li>
-                      <li className="main-mega"><a href="#">best selling <i className="fa fa-angle-right" aria-hidden="true"></i></a>
-                        <ul className="mega-menu">
-                          <li className="single-menu">
-                            <a href="#" className="title-link">Shop Kid's</a>
-                            <div className="image">
-                              <img src="https://via.placeholder.com/225x155" alt="#" />
-                            </div>
-                            <div className="inner-link">
-                              <a href="#">Kids Toys</a>
-                              <a href="#">Kids Travel Car</a>
-                              <a href="#">Kids Color Shape</a>
-                              <a href="#">Kids Tent</a>
-                            </div>
-                          </li>
-                          <li className="single-menu">
-                            <a href="#" className="title-link">Shop Men's</a>
-                            <div className="image">
-                              <img src="https://via.placeholder.com/225x155" alt="#" />
-                            </div>
-                            <div className="inner-link">
-                              <a href="#">Watch</a>
-                              <a href="#">T-shirt</a>
-                              <a href="#">Hoodies</a>
-                              <a href="#">Formal Pant</a>
-                            </div>
-                          </li>
-                          <li className="single-menu">
-                            <a href="#" className="title-link">Shop Women's</a>
-                            <div className="image">
-                              <img src="https://via.placeholder.com/225x155" alt="#" />
-                            </div>
-                            <div className="inner-link">
-                              <a href="#">Ladies Shirt</a>
-                              <a href="#">Ladies Frog</a>
-                              <a href="#">Ladies Sun Glass</a>
-                              <a href="#">Ladies Watch</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a href="#">accessories</a></li>
-                      <li><a href="#">top 100 offer</a></li>
-                      <li><a href="#">sunglass</a></li>
-                      <li><a href="#">watch</a></li>
-                      <li><a href="#">man’s product</a></li>
-                      <li><a href="#">ladies</a></li>
-                      <li><a href="#">westrn dress</a></li>
-                      <li><a href="#">denim </a></li>
+                      {categories.map((item) => {
+                        return (
+                          <li><a href="#">{item.name}</a></li>
+                        )
+                      })
+                      }
                     </ul>
-                  </div>
-                </div>
-                <div className="col-lg-9 col-12">
-                  <div className="menu-area">
-
-                    <nav className="navbar navbar-expand-lg">
-                      <div className="navbar-collapse">
-                        <div className="nav-inner">
-                          <ul className="nav main-menu menu navbar-nav">
-                            <li className="active"><a href="#">Home</a></li>
-                            <li><a href="#">Product</a></li>
-                            <li><a href="#">Service</a></li>
-                            <li><a href="#">Shop<i className="ti-angle-down"></i><span className="new">New</span></a>
-                              <ul className="dropdown">
-                                <li><a href="#">Shop Grid</a></li>
-                                <li><a href="#">Cart</a></li>
-                                <li><a href="#">Checkout</a></li>
-                              </ul>
-                            </li>
-                            <li><a href="#">Pages</a></li>
-                            <li><a href="#">Blog<i className="ti-angle-down"></i></a>
-                              <ul className="dropdown">
-                                <li><a href="#">Blog Single Sidebar</a></li>
-                              </ul>
-                            </li>
-                            <li><a href="#">Contact Us</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </nav>
-
                   </div>
                 </div>
               </div>
@@ -1683,128 +1608,6 @@ function Home() {
         </div>
       </div>
 
-      <div className="product-area most-popular section">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="section-title">
-                <h2>Recomendações</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <div className="owl-carousel popular-slider">
-
-                <div className="single-product">
-                  <div className="product-img">
-                    <a href="#">
-                      <img className="default-img" src="https://via.placeholder.com/550x750" alt="#" />
-                      <img className="hover-img" src="https://via.placeholder.com/550x750" alt="#" />
-                      <span className="out-of-stock">Hot</span>
-                    </a>
-                    <div className="button-head">
-                      <div className="product-action">
-                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i className=" ti-eye"></i><span>Quick Shop</span></a>
-                        <a title="Wishlist" href="#"><i className=" ti-heart "></i><span>Add to Wishlist</span></a>
-                        <a title="Compare" href="#"><i className="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                      </div>
-                      <div className="product-action-2">
-                        <a title="Add to cart" href="#">Add to cart</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3><a href="#">Black Sunglass For Women</a></h3>
-                    <div className="product-price">
-                      <span className="old">$60.00</span>
-                      <span>$50.00</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="single-product">
-                  <div className="product-img">
-                    <a href="#">
-                      <img className="default-img" src="https://via.placeholder.com/550x750" alt="#" />
-                      <img className="hover-img" src="https://via.placeholder.com/550x750" alt="#" />
-                    </a>
-                    <div className="button-head">
-                      <div className="product-action">
-                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i className=" ti-eye"></i><span>Quick Shop</span></a>
-                        <a title="Wishlist" href="#"><i className=" ti-heart "></i><span>Add to Wishlist</span></a>
-                        <a title="Compare" href="#"><i className="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                      </div>
-                      <div className="product-action-2">
-                        <a title="Add to cart" href="#">Add to cart</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3><a href="#">Women Hot Collection</a></h3>
-                    <div className="product-price">
-                      <span>$50.00</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="single-product">
-                  <div className="product-img">
-                    <a href="#">
-                      <img className="default-img" src="https://via.placeholder.com/550x750" alt="#" />
-                      <img className="hover-img" src="https://via.placeholder.com/550x750" alt="#" />
-                      <span className="new">New</span>
-                    </a>
-                    <div className="button-head">
-                      <div className="product-action">
-                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i className=" ti-eye"></i><span>Quick Shop</span></a>
-                        <a title="Wishlist" href="#"><i className=" ti-heart "></i><span>Add to Wishlist</span></a>
-                        <a title="Compare" href="#"><i className="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                      </div>
-                      <div className="product-action-2">
-                        <a title="Add to cart" href="#">Add to cart</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3><a href="#">Awesome Pink Show</a></h3>
-                    <div className="product-price">
-                      <span>$50.00</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="single-product">
-                  <div className="product-img">
-                    <a href="#">
-                      <img className="default-img" src="https://via.placeholder.com/550x750" alt="#" />
-                      <img className="hover-img" src="https://via.placeholder.com/550x750" alt="#" />
-                    </a>
-                    <div className="button-head">
-                      <div className="product-action">
-                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i className=" ti-eye"></i><span>Quick Shop</span></a>
-                        <a title="Wishlist" href="#"><i className=" ti-heart "></i><span>Add to Wishlist</span></a>
-                        <a title="Compare" href="#"><i className="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                      </div>
-                      <div className="product-action-2">
-                        <a title="Add to cart" href="#">Add to cart</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3><a href="#">Awesome Bags Collection</a></h3>
-                    <div className="product-price">
-                      <span>$50.00</span>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <section className="shop-home-list section">
         <div className="container">
           <div className="row">
@@ -1995,70 +1798,6 @@ function Home() {
         </div>
       </section>
 
-      <section className="shop-services section home">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3 col-md-6 col-12">
-
-              <div className="single-service">
-                <i className="ti-rocket"></i>
-                <h4>Free shiping</h4>
-                <p>Orders over $100</p>
-              </div>
-
-            </div>
-            <div className="col-lg-3 col-md-6 col-12">
-
-              <div className="single-service">
-                <i className="ti-reload"></i>
-                <h4>Free Return</h4>
-                <p>Within 30 days returns</p>
-              </div>
-
-            </div>
-            <div className="col-lg-3 col-md-6 col-12">
-
-              <div className="single-service">
-                <i className="ti-lock"></i>
-                <h4>Sucure Payment</h4>
-                <p>100% secure payment</p>
-              </div>
-
-            </div>
-            <div className="col-lg-3 col-md-6 col-12">
-
-              <div className="single-service">
-                <i className="ti-tag"></i>
-                <h4>Best Peice</h4>
-                <p>Guaranteed price</p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="shop-newsletter section">
-        <div className="container">
-          <div className="inner-top">
-            <div className="row">
-              <div className="col-lg-8 offset-lg-2 col-12">
-
-                <div className="inner">
-                  <h4>Newsletter</h4>
-                  <p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-                  <form action="mail/mail.php" method="get" target="_blank" className="newsletter-inner">
-                    <input name="EMAIL" placeholder="Your email address" required="" type="email" />
-                    <button className="btn">Subscribe</button>
-                  </form>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -2179,59 +1918,30 @@ function Home() {
 
                 <div className="single-footer about">
                   <div className="logo">
-                    <a href="#">Box 25</a>
+                    <a href="#">Troupos Comércio de Ferramentas</a>
                   </div>
                   <p className="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                  <p className="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+                  <p className="call">Tem alguma dúvida? Nos contate!<span><a href="tel:4730567718">(47)3056-7718</a></span></p>
                 </div>
 
               </div>
-              <div className="col-lg-2 col-md-6 col-12">
 
-                <div className="single-footer links">
-                  <h4>Information</h4>
-                  <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Faq</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Help</a></li>
-                  </ul>
-                </div>
-
-              </div>
-              <div className="col-lg-2 col-md-6 col-12">
-
-                <div className="single-footer links">
-                  <h4>Customer Service</h4>
-                  <ul>
-                    <li><a href="#">Payment Methods</a></li>
-                    <li><a href="#">Money-back</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                  </ul>
-                </div>
-
-              </div>
               <div className="col-lg-3 col-md-6 col-12">
 
                 <div className="single-footer social">
-                  <h4>Get In Tuch</h4>
+                  <h4>Entre em Contato</h4>
 
                   <div className="contact">
                     <ul>
                       <li>Balneário Camboriú.</li>
                       <li>Santa Catarina, Brasil.</li>
-                      <li>email.com</li>
-                      <li>+0000000000</li>
+                      <li>trouposcomercio@gmail.com</li>
+                      <li>(47)3056-7718</li>
                     </ul>
                   </div>
 
                   <ul>
                     <li><a href="#"><i className="ti-facebook"></i></a></li>
-                    <li><a href="#"><i className="ti-twitter"></i></a></li>
-                    <li><a href="#"><i className="ti-flickr"></i></a></li>
                     <li><a href="#"><i className="ti-instagram"></i></a></li>
                   </ul>
                 </div>
@@ -2247,12 +1957,7 @@ function Home() {
               <div className="row">
                 <div className="col-lg-6 col-12">
                   <div className="left">
-                    <p>Copyright © 2021 <a href="#" target="_blank">Box 25</a>  -  All Rights Reserved.</p>
-                  </div>
-                </div>
-                <div className="col-lg-6 col-12">
-                  <div className="right">
-                    <img src="assets/images/payments.png" alt="#" />
+                    <p>Copyright © 2022 <a href="#" target="_blank">Troupos Comércio de Ferramentas</a> - Todos os Direitos Reservados.</p>
                   </div>
                 </div>
               </div>
