@@ -88,17 +88,20 @@ const Categories = () => {
             </div>
           </div>
 
-          <div>
-            <table className="table">
-              <tbody>
+          <div className="container py-5">
+            <table className="table w-50 m-auto">
+              <thead>
                 <tr>
-                  <th scope="row">Nome</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col"></th>
                 </tr>
+              </thead>
+              <tbody>
                 {categories.map((item) => {
                   return (
                     <tr key={item.id}>
                       <td>{item.name}</td>
-                      <button className='btn btn-danger' />
+                      <td className='text-end'><button className='btn btn-sm btn-danger'><i class="fa-solid fa-trash text-black" ></i></button></td>
                     </tr>
                   )
                 })
