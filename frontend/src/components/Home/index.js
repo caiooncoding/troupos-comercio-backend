@@ -176,7 +176,7 @@ function Home() {
               <div className="row">
                 <div className="col-lg-3">
                   <div className="all-category">
-                    <h3 className="cat-heading"><i className="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
+                    <h3 className="cat-heading"><i className="fa fa-bars" aria-hidden="true"></i>CATEGORIAS</h3>
                     <ul className="main-category">
                       {categories.map((item) => {
                         return (
