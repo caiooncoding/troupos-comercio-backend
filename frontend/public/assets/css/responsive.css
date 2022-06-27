@@ -214,15 +214,7 @@ Version:1.0
 .hero-area4 .big-content .button .btn {
 	padding: 10px 20px;
 }
-.small-banner {
-	padding: 18px 0;	
-}
-.small-banner .single-banner.tab-height{
-	height:300px;
-}
-.small-banner .single-banner{
-	margin-bottom: 18px;
-}
+
 .modal-dialog .quickview-slider-active{
 	width:720px;
 }
@@ -637,13 +629,6 @@ Version:1.0
 }
 .product-area .nav-tabs .nav-item {
 	margin-bottom: 10px;
-}
-.small-banner {
-	padding: 18px 0;
-	
-}
-.small-banner .single-banner{
-	margin-bottom: 18px;
 }
 .modal-dialog .quickview-slider-active{
 	width:720px;
@@ -1295,26 +1280,6 @@ Version:1.0
 }
 .product-area .nav-tabs .nav-item {
 	margin-bottom: 10px;
-}
-.small-banner {
-	padding: 18px 0;
-	
-}
-.small-banner .single-banner{
-	margin-bottom: 18px;
-}
-.small-banner .single-banner p {
-	font-size: 13px;
-}
-.small-banner .single-banner .content {
-	padding: 12px 10px 10px 35px;
-}
-.small-banner .single-banner h3 {
-	font-size: 17px;
-}
-.small-banner .single-banner a {
-	margin-top: 15px;
-	font-size: 11px;
 }
 .midium-banner .single-banner .content {
 	padding: 15px 10px 10px 30px;

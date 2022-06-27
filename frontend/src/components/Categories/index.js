@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../layouts/admin/Navbar';
 import Sidebar from '../../layouts/admin/Sidebar';
 import Footer from '../../layouts/admin/Footer';
-import '../../assets/admin/css/styles.css';
-import '../../assets/admin/js/scripts';
 import axios from "axios";
 import swal from "sweetalert";
 
 const Categories = () => {
 
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const [categories, setCategories] = useState([])
 
@@ -22,6 +20,7 @@ const Categories = () => {
   const getCategories = () => {
     axios.get('/api/category/show').then(res => {
       setCategories(res.data)
+      setIsLoading(false)
     })
   }
 
@@ -89,7 +88,7 @@ const Categories = () => {
           </div>
 
           <div className="container py-5">
-            <table className="table w-50 m-auto">
+            <table className="table m-auto">
               <thead>
                 <tr>
                   <th scope="col">Nome</th>
@@ -97,15 +96,22 @@ const Categories = () => {
                 </tr>
               </thead>
               <tbody>
-                {categories.map((item) => {
+                {isLoading &&
+                  <div class="text-center">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                }
+                {categories.map((category) => {
                   return (
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td className='text-end'><button className='btn btn-sm btn-danger'><i class="fa-solid fa-trash text-black" ></i></button></td>
+                    <tr key={category.id}>
+                      <td>{category.name}</td>
+                      <td><button className="btn btn-success btn-sm">Editar</button></td>
+                      <td><button className="btn btn-danger btn-sm">Deletar</button></td>
                     </tr>
                   )
-                })
-                }
+                })}
               </tbody>
             </table>
           </div>

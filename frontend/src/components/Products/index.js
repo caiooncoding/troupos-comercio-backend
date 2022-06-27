@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../layouts/admin/Navbar';
 import Sidebar from '../../layouts/admin/Sidebar';
 import Footer from '../../layouts/admin/Footer';
-import '../../assets/admin/css/styles.css';
-import '../../assets/admin/js/scripts';
 import axios from 'axios';
 import swal from 'sweetalert';
 
@@ -21,6 +19,7 @@ const Products = () => {
   })
   const [image, setImage] = useState([])
   const [errors, setError] = useState([])
+  const [loading, setLoading] = useState(false)
 
 
   const handleInput = (event) => {
@@ -34,6 +33,7 @@ const Products = () => {
 
   const submitProduct = (event) => {
     event.preventDefault();
+    setLoading(true)
 
     const formData = new FormData();
 
@@ -52,9 +52,11 @@ const Products = () => {
 
     axios.post(`api/product`, formData).then(response => {
       if (response.data.status === 200) {
+        setLoading(false)
         swal('Sucesso', response.data.message, "success")
 
-        setProductInput({...productInput,
+        setProductInput({
+          ...productInput,
           category_id: '',
           name: '',
           description: '',
@@ -65,6 +67,7 @@ const Products = () => {
         })
         setError([])
       } else if (response.data.status === 422) {
+        setLoading(false)
         swal("Preencha todos os campos obrigatórios", "", "error")
         setError(response.data.errors)
       }
@@ -171,7 +174,13 @@ const Products = () => {
                       </div>
 
                     </div>
-                    <button type='submit' className='btn btn-primary px-4 mt-2'>Adicionar Produto</button>
+                    {loading ?
+                      <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      :
+                      <button type='submit' className='btn btn-primary px-4 mt-2'>Adicionar Produto</button>
+                    }
                   </form>
                 </div>
               </div>

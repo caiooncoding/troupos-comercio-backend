@@ -51,7 +51,7 @@ class ProductController extends Controller
             {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $filename = time() .' . '.$extension;
+                $filename = time() .'.'.$extension;
                 $file->move('uploads/product/', $filename);
                 $product->image = 'uploads/product/'.$filename;
             }
@@ -63,7 +63,14 @@ class ProductController extends Controller
                 'message' => 'Produto Adicionado com Sucesso!'
             ]);
         }
+    }
 
-
+    public function index()
+    {
+        $products = Product::all();
+        return response()->json([
+            'status' => 200,
+            'products' => $products
+        ]);
     }
 }

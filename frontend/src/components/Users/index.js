@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../layouts/admin/Navbar';
 import Sidebar from '../../layouts/admin/Sidebar';
 import Footer from '../../layouts/admin/Footer';
@@ -10,11 +10,13 @@ import axios from "axios";
 const Users = () => {
 
   const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const getUsers = () => {
     axios.get('/sanctum/csrf-cookie').then(response => {
       axios.get('/api/index').then(res => {
         setUsers(res.data)
+        setLoading(false)
       })
     })
   }
@@ -36,28 +38,35 @@ const Users = () => {
         <div id="layoutSidenav_content">
           <main>
 
-          <div>
-            <table className="table">
-              <tbody>
-                <tr>
-                  <th scope="row">Nome</th>
-                  <th scope="row">Email</th>
-                  <th scope="row">Telefone</th>
-                </tr>
+            <div>
+              <table className="table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Nome</th>
+                    <th scope="row">Email</th>
+                    <th scope="row">Telefone</th>
+                  </tr>
+                  {loading &&
+                    <div class="text-center">
+                      <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  }
                   {users.map((item) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.name}</td>
                         <td>{item.email}</td>
                         <td>{item.phone}</td>
-                        <button className='btn btn-danger'/>
+                        <td><button className="btn btn-danger btn-sm">Deletar</button></td>
                       </tr>
                     )
                   })
-                }
-              </tbody>
-            </table>
-          </div>
+                  }
+                </tbody>
+              </table>
+            </div>
 
           </main>
           <Footer />

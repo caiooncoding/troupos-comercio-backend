@@ -8,6 +8,7 @@ import Main from './layouts/admin/Main';
 import Categories from './components/Categories';
 import Products from './components/Products';
 import Users from './components/Users';
+import ViewProduct from './components/Products/view';
 
 
 axios.defaults.baseURL = "http://localhost:8088/";
@@ -54,7 +55,7 @@ function App() {
                 />
                 <Route
                     path="/admin/view-product"
-                    element={ <Products/> }
+                    element={ <ViewProduct/> }
                 />
                 <Route
                     path="/admin/users"

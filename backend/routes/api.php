@@ -14,6 +14,7 @@ Route::post('/category/register', [CategoryController::class, 'register']);
 Route::get('/category/show', [CategoryController::class, 'index']);
 
 Route::post('/product', [ProductController::class, 'store']);
+Route::get('/view-product', [ProductController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
