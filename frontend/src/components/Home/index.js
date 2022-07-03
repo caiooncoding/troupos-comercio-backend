@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import swal from "sweetalert";
 import { useNavigate } from 'react-router-dom';
-import image from '../../images/items/1.jpg'
+// import './css/home.css';
+
+
 
 function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -287,10 +289,10 @@ function Home() {
                       <div className="tab-pane fade show active" id="man" role="tabpanel">
                         <div className="tab-single">
                           <div className="row">
-                            <div className="col-xl-3 col-lg-4 col-md-4 col-12">
+                            <div className="col-xl-3 col-lg-4 col-md-4">
                               <div className="single-product">
                                 <div className="product-img">
-                                  <a href="/" className='product-img-cover' style={{ backgroundImage: `url('${item.image}')` }}>
+                                  <a href="/" className='product-img-cover' style={{ backgroundImage: `url('${process.env.REACT_APP_API}/${item.image}')` }}>
                                   </a>
                                   <div className="button-head">
                                     <div className="product-action">

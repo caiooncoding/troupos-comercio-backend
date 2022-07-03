@@ -9,6 +9,7 @@ import Categories from './components/Categories';
 import Products from './components/Products';
 import Users from './components/Users';
 import ViewProduct from './components/Products/view';
+import Development from './components/development/index';
 
 
 axios.defaults.baseURL = "http://localhost:8088/";
@@ -28,6 +29,11 @@ function App() {
             <Routes>
                 <Route
                     path="/"
+                    element={ <Development /> }
+                />
+
+                <Route 
+                    path="/home"
                     element={ <Home /> }
                 />
                 
