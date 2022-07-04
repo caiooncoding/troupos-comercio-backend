@@ -4,9 +4,12 @@ import Sidebar from '../../layouts/admin/Sidebar';
 import Footer from '../../layouts/admin/Footer';
 import axios from "axios";
 import swal from "sweetalert";
+import { useNavigate } from 'react-router-dom';
+
 
 const Categories = () => {
 
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -31,7 +34,6 @@ const Categories = () => {
 
   const createCategory = (e) => {
     e.preventDefault();
-    console.log(categories)
     const data = {
       name: category.name
     }
@@ -46,6 +48,27 @@ const Categories = () => {
         setCategory({ ...category, error_list: res.data.validation_errors })
       }
     })
+  }
+
+  const editCategory = (id) => {
+    navigate(`/admin/edit-category/${id}`)
+  }
+
+  const deleteCategory = (event, id) => {
+    event.preventDefault();
+
+    const clickedCategory = event.currentTarget
+    clickedCategory.innerText = "Deletando"
+
+    axios.delete(`/api/delete-category/${id}`).then(response => {
+      if(response.data.status === 200){
+        swal('Sucesso', response.data.message, "success")
+        clickedCategory.closest('tr').remove()
+      } else if (response.data.status === 404) {
+        swal('Error', response.data.message, 'error')
+      }
+    })
+
   }
 
   useEffect(() => {
@@ -107,8 +130,8 @@ const Categories = () => {
                   return (
                     <tr key={category.id}>
                       <td>{category.name}</td>
-                      <td><button className="btn btn-success btn-sm">Editar</button></td>
-                      <td><button className="btn btn-danger btn-sm">Deletar</button></td>
+                      <td><button className="btn btn-success btn-sm" onClick={() => editCategory(category.id)} >Editar</button></td>
+                      <td><button className="btn btn-danger btn-sm" onClick={(event) => deleteCategory(event, category.id)}>Deletar</button></td>
                     </tr>
                   )
                 })}

@@ -12,6 +12,9 @@ Route::get('index', [AuthController::class, 'index']);
 
 Route::post('/category/register', [CategoryController::class, 'register']);
 Route::get('/category/show', [CategoryController::class, 'index']);
+Route::get('/edit-category/{id}', [CategoryController::class, 'edit']);
+Route::put('/update-category/{id}', [CategoryController::class, 'update']);
+Route::delete('/delete-category/{id}', [CategoryController::class, 'delete']);
 
 Route::post('/product', [ProductController::class, 'store']);
 Route::get('/view-product', [ProductController::class, 'index']);

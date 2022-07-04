@@ -10,6 +10,7 @@ import Products from './components/Products';
 import Users from './components/Users';
 import ViewProduct from './components/Products/view';
 import Development from './components/development/index';
+import EditCategory from './components/Categories/edit';
 
 
 axios.defaults.baseURL = "http://localhost:8088/";
@@ -55,6 +56,12 @@ function App() {
                     path="/admin/categories"
                     element={ <Categories/> }
                 />
+
+                <Route 
+                    path='/admin/edit-category/:id'
+                    element={ <EditCategory/> }
+                />
+
                 <Route
                     path="/admin/add-product"
                     element={ <Products/> }
