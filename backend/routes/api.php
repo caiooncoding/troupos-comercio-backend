@@ -21,6 +21,7 @@ Route::get('/view-product', [ProductController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::delete('/delete-user/{id}', [AuthController::class, 'delete']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -101,4 +101,23 @@ class AuthController extends Controller
             'message'=>"Deslogado com sucesso!"
         ]);
     }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+
+        if($user){
+            $user->delete();
+
+            return response()->json([
+                'status'=>200,
+                'message'=>"Usuário deletado com sucesso!"
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Usuário não encontrado'
+            ]);
+        }
+    }
 }

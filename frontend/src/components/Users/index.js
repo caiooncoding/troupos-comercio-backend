@@ -5,6 +5,7 @@ import Footer from '../../layouts/admin/Footer';
 import '../../assets/admin/css/styles.css';
 import '../../assets/admin/js/scripts';
 import axios from "axios";
+import swal from 'sweetalert';
 
 
 const Users = () => {
@@ -18,6 +19,22 @@ const Users = () => {
         setUsers(res.data)
         setLoading(false)
       })
+    })
+  }
+
+  const deleteUser = (event, id) => {
+    event.preventDefault()
+
+    const clickedUser = event.currentTarget
+    clickedUser.innerText = "Deletando"
+
+    axios.delete(`/api/delete-user/${id}`).then(response => {
+      if(response.data.status === 200){
+        swal('Sucesso', response.data.message, 'success')
+        clickedUser.closest('tr').remove()
+      } else if(response.data.status === 404){
+        swal('Error', response.data.message, 'error')
+      }
     })
   }
 
@@ -53,13 +70,13 @@ const Users = () => {
                       </div>
                     </div>
                   }
-                  {users.map((item) => {
+                  {users.map((user) => {
                     return (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{item.email}</td>
-                        <td>{item.phone}</td>
-                        <td><button className="btn btn-danger btn-sm">Deletar</button></td>
+                      <tr key={user.id}>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.phone}</td>
+                        <td><button onClick={(event) => deleteUser(event, user.id)} className="btn btn-danger btn-sm">Deletar</button></td>
                       </tr>
                     )
                   })
