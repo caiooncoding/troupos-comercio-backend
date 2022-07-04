@@ -18,6 +18,9 @@ Route::delete('/delete-category/{id}', [CategoryController::class, 'delete']);
 
 Route::post('/product', [ProductController::class, 'store']);
 Route::get('/view-product', [ProductController::class, 'index']);
+Route::get('/edit-product/{id}', [ProductController::class, 'edit']);
+Route::post('/update-product/{id}', [ProductController::class, 'update']);
+Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

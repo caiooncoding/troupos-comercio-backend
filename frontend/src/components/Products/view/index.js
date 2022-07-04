@@ -4,6 +4,7 @@ import Navbar from "../../../layouts/admin/Navbar";
 import Sidebar from "../../../layouts/admin/Sidebar";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import swal from "sweetalert";
 
 
 function ViewProduct() {
@@ -15,6 +16,27 @@ function ViewProduct() {
 
   const goToAddProduct = () => {
     navigate('/admin/add-product')
+  }
+
+  const editProduct = (id) => {
+    navigate(`/admin/edit-product/${id}`)
+  }
+
+  const deleteProduct = (event, id) => {
+    event.preventDefault();
+
+    const clickedProduct = event.currentTarget
+    clickedProduct.innerText = "Deletando"
+
+    axios.delete(`/api/delete-product/${id}`).then(response => {
+      if(response.data.status === 200){
+        swal('Sucesso', response.data.message, "success")
+        clickedProduct.closest('tr').remove()
+      } else if (response.data.status === 404) {
+        swal('Error', response.data.message, 'error')
+      }
+    })
+
   }
 
   useEffect(() => {
@@ -72,8 +94,8 @@ function ViewProduct() {
                           <td>{product.name}</td>
                           <td>{product.selling_price}</td>
                           <td><img src={`${process.env.REACT_APP_API}/${product.image}`} width="50px" alt="imagem"></img></td>
-                          <td><button className="btn btn-success btn-sm">Editar</button></td>
-                          <td><button className="btn btn-danger btn-sm">Deletar</button></td>
+                          <td><button className="btn btn-success btn-sm" onClick={() => editProduct(product.id)}>Editar</button></td>
+                          <td><button className="btn btn-danger btn-sm" onClick={(e) => deleteProduct(e, product.id)}>Deletar</button></td>
                         </tr>
                       )
                     })}
