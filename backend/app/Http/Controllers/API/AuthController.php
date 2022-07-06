@@ -5,11 +5,17 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function me()
+    {
+        return response()->json(Auth::user());
+    }
+
     public function index ()
     {
        $users = User::all();
@@ -87,6 +93,7 @@ class AuthController extends Controller
                     'status' => 200,
                     'username' => $user->name,
                     'token' => $token,
+                    'user_type' => $user->type,
                     'message' => 'Login realizado com sucesso!'
                 ]);
             }

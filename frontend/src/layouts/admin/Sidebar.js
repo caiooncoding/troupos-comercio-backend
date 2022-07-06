@@ -12,30 +12,30 @@ const Sidebar = () => {
         <div className="nav">
           <div className="sb-sidenav-menu-heading"></div>
 
-          <Link className="nav-link" to="/admin/categories">
+          <a className="nav-link" href="/admin/categories">
             <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
             Categorias
-          </Link>
+          </a>
 
-          <Link class="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
           <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
             Produtos
             <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-          </Link>
+          </a>
           <div className='collapse' id="collapseProduct" aria-labelledby='headingOne' data-bs-parent="#sidenavAccordion">
             <nav className='sb-sidenav-menu-nested nav'>
-              <Link className='nav-link' to="/admin/add-product">Adicionar Produto</Link>
-              <Link className='nav-link' to="/admin/view-product">Visualizar Produtos</Link>
+              <a className='nav-link' href="/admin/add-product">Adicionar Produto</a>
+              <a className='nav-link' href="/admin/view-product">Visualizar Produtos</a>
             </nav>
           </div>
 
 
 
 
-          <Link className="nav-link" to="/admin/users">
+          <a className="nav-link" href="/admin/users">
             <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
             Usuários
-          </Link>
+          </a>
 
 
         </div>

@@ -50,7 +50,7 @@ function Register() {
   }
 
   return (
-    <div>
+    <div id='home'>
       {isLoading &&
         <div className="preloader">
           <div className="preloader-inner">

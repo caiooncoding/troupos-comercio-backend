@@ -3,6 +3,7 @@ import Navbar from "../Navbar";
 import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from 'react-router-dom';
+import '../Home/css/home.css';
 
 function Login() {
 
@@ -37,6 +38,7 @@ function Login() {
 
           localStorage.setItem('auth_token', res.data.token)
           localStorage.setItem('auth_name', res.data.username)
+          localStorage.setItem('user_type', res.data.user_type)
 
           navigate('/')
         }
@@ -53,7 +55,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div id='home'>
       {isLoading &&
         <div className="preloader">
           <div className="preloader-inner">

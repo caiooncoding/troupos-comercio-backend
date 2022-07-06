@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import swal from "sweetalert";
 import { useNavigate } from 'react-router-dom';
-// import './css/home.css';
+import './css/home.css';
 
 
 
@@ -61,7 +61,7 @@ function Home() {
   }, [])
 
   return (
-    <div>
+    <div id="home">
       {isLoading &&
         <div className="preloader">
           <div className="preloader-inner">

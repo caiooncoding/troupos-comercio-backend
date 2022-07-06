@@ -8,23 +8,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::get('index', [AuthController::class, 'index']);
 
-Route::post('/category/register', [CategoryController::class, 'register']);
-Route::get('/category/show', [CategoryController::class, 'index']);
-Route::get('/edit-category/{id}', [CategoryController::class, 'edit']);
-Route::put('/update-category/{id}', [CategoryController::class, 'update']);
-Route::delete('/delete-category/{id}', [CategoryController::class, 'delete']);
 
-Route::post('/product', [ProductController::class, 'store']);
-Route::get('/view-product', [ProductController::class, 'index']);
-Route::get('/edit-product/{id}', [ProductController::class, 'edit']);
-Route::post('/update-product/{id}', [ProductController::class, 'update']);
-Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
-
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'userRules'])->group(function () {
+    Route::post('/category/register', [CategoryController::class, 'register']);
+    Route::get('/category/show', [CategoryController::class, 'index']);
+    Route::get('/edit-category/{id}', [CategoryController::class, 'edit']);
+    Route::put('/update-category/{id}', [CategoryController::class, 'update']);
+    Route::delete('/delete-category/{id}', [CategoryController::class, 'delete']);
+    
+    Route::post('/product', [ProductController::class, 'store']);
+    Route::get('/view-product', [ProductController::class, 'index']);
+    Route::get('/edit-product/{id}', [ProductController::class, 'edit']);
+    Route::post('/update-product/{id}', [ProductController::class, 'update']);
+    Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
+    
+    Route::get('index', [AuthController::class, 'index']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::delete('/delete-user/{id}', [AuthController::class, 'delete']);
+    Route::get('/users/me', [AuthController::class, 'me']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

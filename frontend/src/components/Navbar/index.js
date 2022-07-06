@@ -48,7 +48,7 @@ function Navbar() {
                   <div className="top-left">
                     <ul className="list-main">
                       <li><i className="ti-headphone-alt"></i>(47)3056-7718</li>
-                      <li><i className="ti-email"></i> email.com</li>
+                      <li><i className="ti-email"></i>trouposcomercio@gmail.com</li>
                     </ul>
                   </div>
 
@@ -58,7 +58,6 @@ function Navbar() {
                   <div className="right-content">
                     <ul className="list-main">
                       <li><i className="ti-location-pin"></i>Localização da Loja</li>
-                      <li><i className="ti-user"></i> <a href="#">Minha Conta</a></li>
                       {AuthButtons}
                     </ul>
                   </div>
