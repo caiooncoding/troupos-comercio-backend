@@ -1,0 +1,32 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    build:
+      args:
+        user: root-troupps
+        uid: 1000
+      context: .
+      dockerfile: dev.Dockerfile
+    working_dir: /var/www
+    container_name: troupos-backend
+    volumes:
+      - ./:/var/www:delegated
+      - ./configurations/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-uploadsize.ini:delegated
+      - ./configurations/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:delegated
+    restart: always
+    environment:
+      - "TZ=America/Fortaleza"
+
+  web:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    working_dir: /var/www
+    container_name: troupos-nginx
+    volumes_from:
+      - app
+    ports:
+      - "8081:8080"
+    restart: always
