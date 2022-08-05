@@ -52,13 +52,10 @@ class AuthController extends Controller
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password)
             ]);
-
-            $token = $user->createToken($user->email . '_Token')->plainTextToken;
-
+ 
             return response()->json([
                 'status' => 200,
                 'username' => $user->name,
-                'token' => $token,
                 'message' => 'Registrado com Sucesso'
             ]);
         }
@@ -66,43 +63,29 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
-        ], [
-            'email.required' => 'Email é obrigatório',
-            'password.required' => 'Senha é obrigatória'
-        ]);
+        $creds = $request->only(['email', 'password']);
+        $user = User::where('email', $request->email)->first();
 
-        if ($validator->fails()) {
+        if(!$token = auth()->attempt($creds)) {
             return response()->json([
-                'validation_errors' => $validator->messages()
+                'status' => 401,
+                'message' => 'Email ou senha incorretos!'
             ]);
-        } else {
-            $user = User::where('email', $request->email)->first();
-
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json([
-                    'status' => 401,
-                    'message' => 'Email ou Senha incorretos.'
-                ]);
-            } else {
-                $token = $user->createToken($user->email . '_Token')->plainTextToken;
-
-                return response()->json([
-                    'status' => 200,
-                    'username' => $user->name,
-                    'token' => $token,
-                    'user_type' => $user->type,
-                    'message' => 'Login realizado com sucesso!'
-                ]);
-            }
         }
+
+        return response()->json([
+            'status' => 200,
+            'username' => $user->name,
+            'token' => $token,
+            'user_type' => $user->type,
+            'message' => 'Login realizado com sucesso!'
+        ]);
     }
 
     public function logout()
-    {
-        auth()->user()->tokens()->delete();
+    { 
+        auth()->logout();
+      
         return response()->json([
             'status'=>200,
             'message'=>"Deslogado com sucesso!"

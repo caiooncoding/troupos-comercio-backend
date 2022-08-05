@@ -16,15 +16,11 @@ class ProductController extends Controller
             'category_id' => 'required|max:191',
             'name' => 'required|max:191',
             'brand' => 'required|max:191',
-            'selling_price' => 'required|max:191',
-            'original_price' => 'required|max:191',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'category_id.required' => 'Categoria é obrigatória',
             'name.required' => 'Nome é obrigatório',
             'brand.required' => 'Marca é obrigatória',
-            'selling_price.required' => 'Preço de Venda obrigatório',
-            'original_price.required' => 'Preço original obrigatório',
             'image.required' => 'Imagem obrigatória',
             'image.image' => 'Este campo deve ser uma imagem',
             'image.mimes' => 'A imagem deve ser nos formatos jpeg, png, jpg'

@@ -10,7 +10,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 
-Route::middleware(['auth:sanctum', 'userRules'])->group(function () {
+Route::middleware(['auth:api', 'userRules'])->group(function () {
     Route::post('/category/register', [CategoryController::class, 'register']);
     Route::get('/category/show', [CategoryController::class, 'index']);
     Route::get('/edit-category/{id}', [CategoryController::class, 'edit']);
@@ -29,6 +29,6 @@ Route::middleware(['auth:sanctum', 'userRules'])->group(function () {
     Route::get('/users/me', [AuthController::class, 'me']);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
