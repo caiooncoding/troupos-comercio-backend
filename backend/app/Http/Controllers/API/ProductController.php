@@ -162,4 +162,11 @@ class ProductController extends Controller
             ]);
         }
     }
+
+    public function byCategory($id)
+    {
+        $product = Product::where('category_id', $id)->get();
+
+        return $product;
+    }
 }

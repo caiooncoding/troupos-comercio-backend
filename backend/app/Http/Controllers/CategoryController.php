@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -28,6 +28,7 @@ class CategoryController extends Controller
         } else {
             Category::create([
                 'name' => $request->name,
+                'slug' => Str::slug($request->name, '_')
             ]);
 
 
@@ -78,9 +79,9 @@ class CategoryController extends Controller
 
             $category = Category::find($id);
 
-            if($category)
-            {
+            if ($category) {
                 $category->name = $request->name;
+                $category->slug = Str::slug($request->name, '_');
                 $category->save();
 
                 return response()->json([
@@ -93,26 +94,41 @@ class CategoryController extends Controller
                     'message' => 'Categoria não encontrada'
                 ]);
             }
-
         }
     }
 
     public function delete($id)
     {
-      $category = Category::find($id);
+        $category = Category::find($id);
 
-      if($category)
-      {
-        $category->delete();
-        return response()->json([
-            'status' => 200,
-            'message' => 'Categoria deletada com sucesso!'
-        ]);
-      } else {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Categoria não encontrada'
-        ]);
-      }
+        if ($category) {
+            $category->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Categoria deletada com sucesso!'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Categoria não encontrada'
+            ]);
+        }
+    }
+
+    public function getCategory($id)
+    {
+        $category = Category::find($id);
+
+        if ($category) {
+            return response()->json([
+                'status' => 200,
+                'category' => $category
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Categoria não encontrada'
+            ]);
+        }
     }
 }
