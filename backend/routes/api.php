@@ -29,6 +29,7 @@ Route::middleware(['auth:api', 'userRules'])->group(function () {
     Route::get('index', [AuthController::class, 'index']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::delete('/delete-user/{id}', [AuthController::class, 'delete']);
+    Route::post('/update-user/{id}', [AuthController::class, 'update']);
     Route::get('/users/me', [AuthController::class, 'me']);
 });
 

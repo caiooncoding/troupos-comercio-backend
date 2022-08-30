@@ -110,4 +110,50 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|max:191|unique:users,email',
+            'phone' => 'required|min:11',
+            'password' => 'required|min:8'
+        ], [
+            'name.required' => 'Nome é obrigatório',
+            'email.required' => 'Email é obrigatório',
+            'email.unique' => 'Email já cadastrado',
+            'phone.required' => 'Número de telefone obrigatório',
+            'phone.min' => 'Número de telefone deve conter 11 caracteres',
+            'password.required' => 'Senha obrigatória',
+            'password.min' => 'A senha deve conter no mínimo 8 caracteres'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422,
+                'errors' => $validator->messages()
+            ]);
+        } else {
+            $user = User::find($id);
+
+            if ($user) {
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->phone = $request->input('phone');
+                $user->password = Hash::make($request->input('password'));
+
+                $user->update();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Usuário atualizado com Sucesso!'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Usuário não encontrado!'
+                ]);
+            }
+        }
+    }
 }
